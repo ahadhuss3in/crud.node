@@ -39,10 +39,10 @@ const getContactSpecific = asyncHandler(async(req,res)=>{
        const contact = await Contact.findById(req.params.id)
     if(!contact){
         res.status(404).json({message:"User not found"})
-        throw new Error("Please check ID")
+        //throw new Error("Please check ID")
     }
     else
-        console.log("User :", contact);
+        //console.log("User :", contact);
         res.status(200).json({ message: "User details", contact });
     });
     
@@ -51,15 +51,34 @@ const getContactSpecific = asyncHandler(async(req,res)=>{
 //@route put /api/contacts
 //@access public
 
-const UpdateContact = asyncHandler((asyncreq,res)=>{
-    res.status(200).json({message:`update contacts for ${req.params.id}`});
+const UpdateContact = asyncHandler(async (req,res)=>{
+    const contact = await Contact.findById(req.params.id)
+    if(!contact){
+        res.status(404).json({message:"User not found"})
+        throw new Error("Please check ID")
+    }
+
+    const updatedInfo = await Contact.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new:true}
+    );
+    //res.status(200).json({message:`update contacts for ${req.params.id}`});
+    console.log(`Contacts updated , new contacts is ${updatedInfo}`);
+    res.status(200).json(updatedInfo)
 });
 //@desc dellete contacts
 //@route Delete/api/contacts
 //@access public
 
 const DeleteContact = asyncHandler(async(req,res)=>{
-    res.status(200).json({message:`delete contacts for ${req.params.id}`});
+    const contact = await Contact.findById(req.params.id)
+    if(!contact){
+        res.status(404).json({message:"User not found"})
+        throw new Error("Please check ID")
+    }
+    await Contact.findOneAndDelete(req.params.id);
+    res.status(200).json(contact);
 });
 
 

@@ -15,8 +15,7 @@ const {
 router.route("/").get(getContact).post(CreateContact);
  
 //if api calls come with values then i use this routes and go to the controller where i have declared the logic for each
-router.route("/:id").get(getContactSpecific).put(UpdateContact)
-.delete(DeleteContact);
+router.route("/:id").get(getContactSpecific).put(UpdateContact).delete(DeleteContact);
 
 
 module.exports = router;
