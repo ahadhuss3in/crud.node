@@ -69,7 +69,7 @@ const UpdateContact = asyncHandler(async (req,res)=>{
 });
 //@desc dellete contacts
 //@route Delete/api/contacts
-//@access public
+//@access pußblic
 
 const DeleteContact = asyncHandler(async(req,res)=>{
     const contact = await Contact.findById(req.params.id)
@@ -77,7 +77,7 @@ const DeleteContact = asyncHandler(async(req,res)=>{
         res.status(404).json({message:"User not found"})
         throw new Error("Please check ID")
     }
-    await Contact.findOneAndDelete(req.params.id);
+    await Contact.findByIdAndDelete(req.params.id);
     res.status(200).json(contact);
 });
 

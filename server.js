@@ -14,6 +14,8 @@ app.use(express.json());
 // goes to like diff routers and all
 app.use("/api/contacts",require("./routes/contactroute"))
 
+app.use("/api/users",require("./routes/userroutes"))
+
 // good error handling skills ezz gg
 app.use(errorHandler);
 
